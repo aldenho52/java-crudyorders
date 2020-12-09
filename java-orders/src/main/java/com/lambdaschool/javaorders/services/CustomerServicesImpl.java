@@ -85,9 +85,45 @@ public class CustomerServicesImpl implements CustomerServices {
             newCustomer.getOrders().add(newOrder);
         }
 
-
-
-
         return custrepos.save(newCustomer);
+    }
+
+    @Transactional
+    @Override
+    public Customer update(Customer customer, long id)
+    {
+        Customer updateCustomer = custrepos.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Customer " + id + " Not Found"));
+
+
+
+        if(customer.getCustname() != null) updateCustomer.setCustname(customer.getCustname());
+        if(customer.getCustcity() != null) updateCustomer.setCustcity(customer.getCustcity());
+        if(customer.getWorkingarea() != null) updateCustomer.setWorkingarea(customer.getWorkingarea());
+        if(customer.getCustcountry() != null) updateCustomer.setCustcountry(customer.getCustcountry());
+        if(customer.getGrade() != null) updateCustomer.setGrade(customer.getGrade());
+        if(customer.getPhone() != null) updateCustomer.setPhone(customer.getPhone());
+        if(customer.getAgent() != null) updateCustomer.setAgent(customer.getAgent());
+        if(customer.hasValueForOpeningAmt) updateCustomer.setOpeningamt(customer.getOpeningamt());
+        if(customer.hasValueForReceiveAmt) updateCustomer.setReceiveamt(customer.getReceiveamt());
+        if(customer.hasValueForPaymentAmt) updateCustomer.setPaymentamt(customer.getPaymentamt());
+        if(customer.hasValueForOutstandingAmt) updateCustomer.setOutstandingamt(customer.getOutstandingamt());
+
+        if (customer.getOrders().size() > 0) {
+            updateCustomer.getOrders().clear();
+            for (Order o : customer.getOrders())
+            {
+                Order newOrder = new Order();
+                newOrder.setOrdamount(o.getOrdamount());
+                newOrder.setAdvanceamount(o.getAdvanceamount());
+                newOrder.setOrderdescription(o.getOrderdescription());
+                newOrder.setPayments(o.getPayments());
+
+                newOrder.setCustomer(updateCustomer);
+                updateCustomer.getOrders().add(newOrder);
+            }
+        }
+
+        return custrepos.save(updateCustomer);
     }
 }

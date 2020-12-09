@@ -20,10 +20,25 @@ public class Customer
     private String workingarea;
     private String custcountry;
     private String grade;
+
+
     private double openingamt;
+    @Transient
+    public boolean hasValueForOpeningAmt = false;
+
     private double receiveamt;
+    @Transient
+    public boolean hasValueForReceiveAmt = false;
+
     private double paymentamt;
+    @Transient
+    public boolean hasValueForPaymentAmt = false;
+
     private double outstandingamt;
+    @Transient
+    public boolean hasValueForOutstandingAmt = false;
+
+
     private String phone;
 
     @ManyToOne
@@ -135,6 +150,7 @@ public class Customer
     public void setOpeningamt(double openingamt)
     {
         this.openingamt = openingamt;
+        hasValueForOpeningAmt = true;
     }
 
     public double getReceiveamt()
@@ -145,6 +161,7 @@ public class Customer
     public void setReceiveamt(double receiveamt)
     {
         this.receiveamt = receiveamt;
+        hasValueForReceiveAmt = true;
     }
 
     public double getPaymentamt()
@@ -155,6 +172,7 @@ public class Customer
     public void setPaymentamt(double paymentamt)
     {
         this.paymentamt = paymentamt;
+        hasValueForPaymentAmt = true;
     }
 
     public double getOutstandingamt()
@@ -165,6 +183,7 @@ public class Customer
     public void setOutstandingamt(double outstandingamt)
     {
         this.outstandingamt = outstandingamt;
+        hasValueForOutstandingAmt = true;
     }
 
     public String getPhone()

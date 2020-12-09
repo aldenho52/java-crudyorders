@@ -13,4 +13,5 @@ public interface CustomerServices
     List<OrderCounts> findOrderCounts();
 
     Customer save(Customer customer); // POST
+    Customer update(Customer customer, long id);
 }
