@@ -8,4 +8,6 @@ public interface OrderServices
 {
     Order findById(long id);
     List<Order> findByAdvanceamountGreaterThan(double number);
+
+    void delete(long id);
 }

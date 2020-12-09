@@ -31,4 +31,10 @@ public class OrderServicesImpl implements OrderServices
         return rtnList;
     }
 
+    @Transactional
+    @Override
+    public void delete(long id)
+    {
+        orderrepos.deleteById(id);
+    }
 }
