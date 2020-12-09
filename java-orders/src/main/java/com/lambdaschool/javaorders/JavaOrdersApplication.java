@@ -14,4 +14,3 @@ public class JavaOrdersApplication
     }
 
 }
-git status
