@@ -10,4 +10,6 @@ public interface OrderServices
     List<Order> findByAdvanceamountGreaterThan(double number);
 
     void delete(long id);
+
+    Order save(Order order); // Post
 }
