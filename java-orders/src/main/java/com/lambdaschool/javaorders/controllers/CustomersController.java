@@ -54,7 +54,7 @@ public class CustomersController
     }
 
     //    POST http://localhost:2019/customers/customer
-    @PostMapping(value = "/customer", consumes = "application/json", produces = "application/json")
+    @PostMapping(value = "/customer", consumes = "application/json")
     public ResponseEntity<?> addCustomer(@Valid @RequestBody Customer newCustomer)
     {
         newCustomer.setCustcode(0);
@@ -66,10 +66,18 @@ public class CustomersController
             .buildAndExpand(newCustomer.getCustcode())
             .toUri();
         responseHeaders.setLocation(newCustomerURI);
-        return new ResponseEntity<>(newCustomer, responseHeaders, HttpStatus.CREATED);
+        return new ResponseEntity<>(responseHeaders, HttpStatus.CREATED);
     }
 
     //    PUT http://localhost:2019/customers/customer/19
+    @PutMapping(value = "/customer/{custcode}", consumes = "application/json")
+    public ResponseEntity<?> replaceCustomerById(@PathVariable long custcode, @Valid @RequestBody Customer replaceCustomer)
+    {
+        replaceCustomer.setCustcode(custcode);
+        Customer c = customerServices.save(replaceCustomer);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
     //    PATCH http://localhost:2019/customers/customer/19
     //    DELETE http://localhost:2019/customers/customer/54
     //    POST http://localhost:2019/orders/order
