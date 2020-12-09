@@ -3,7 +3,6 @@ package com.lambdaschool.javaorders.controllers;
 
 import com.lambdaschool.javaorders.models.Order;
 import com.lambdaschool.javaorders.services.OrderServices;
-import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -57,7 +56,13 @@ public class OrdersController
     }
 
     //    PUT http://localhost:2019/orders/order/63
-
+    @PutMapping(value = "/order/{ordnum}", consumes = "application/json")
+    public ResponseEntity<?> replaceOrderById(@PathVariable long ordnum, @Valid @RequestBody Order replaceOrder)
+    {
+        replaceOrder.setOrdnum(ordnum);
+        Order o = orderServices.save(replaceOrder);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 
     //    DELETE http://localhost:2019/orders/order/58
     @DeleteMapping(value="/order/{ordnum}")
