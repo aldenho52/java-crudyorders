@@ -126,4 +126,11 @@ public class CustomerServicesImpl implements CustomerServices {
 
         return custrepos.save(updateCustomer);
     }
+
+    @Transactional
+    @Override
+    public void delete(long id)
+    {
+        custrepos.deleteById(id);
+    }
 }

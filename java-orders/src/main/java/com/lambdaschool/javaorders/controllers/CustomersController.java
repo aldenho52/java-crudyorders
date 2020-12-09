@@ -87,6 +87,14 @@ public class CustomersController
     }
 
     //    DELETE http://localhost:2019/customers/customer/54
+    @DeleteMapping(value="/customer/{custcode}")
+    public ResponseEntity<?> deleteCustomerById(@PathVariable long custcode)
+    {
+        customerServices.delete(custcode);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+
     //    POST http://localhost:2019/orders/order
     //    PUT http://localhost:2019/orders/order/63
     //    DELETE http://localhost:2019/orders/order/58
