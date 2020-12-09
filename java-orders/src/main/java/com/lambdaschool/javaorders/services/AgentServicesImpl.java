@@ -29,4 +29,18 @@ public class AgentServicesImpl implements AgentServices
     public Agent save(Agent agent) {
         return agentsRepository.save(agent);
     }
+
+    @Transactional
+    @Override
+    public void delete(long id)
+    {
+        Agent deleteAgent = agentsRepository.findById(id)
+            .orElseThrow(() -> new EntityNotFoundException("Agent " + id + " Not Found"));
+
+        if (deleteAgent.getCustomers().size() == 0) {
+            agentsRepository.deleteById(id);
+        } else {
+            throw new EntityNotFoundException("Found A Customer For Agent " + id);
+        }
+    }
 }
